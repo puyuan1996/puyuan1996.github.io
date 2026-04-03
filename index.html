@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>蒲源 | Yuan Pu - AI Researcher</title>
-  <meta name="description" content="蒲源的个人主页 - 强化学习、世界模型、MCTS、大模型强化微调">
+  <meta name="description" content="蒲源的个人主页 - 强化学习、世界模型、MCTS、多模态大模型强化微调">
   <style>
     /* ===== Reset & Base ===== */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -20,6 +20,38 @@
 
     /* ===== Layout ===== */
     .container { max-width: 820px; margin: 0 auto; padding: 0 24px; }
+
+    /* ===== Language Toggle ===== */
+    .lang-toggle {
+      position: fixed; top: 18px; right: 24px; z-index: 100;
+      display: flex; border: 1px solid #e2e8f0; border-radius: 6px;
+      overflow: hidden; background: #fff;
+      box-shadow: 0 1px 6px rgba(0,0,0,.08);
+    }
+    .lang-btn {
+      padding: 5px 14px; font-size: 13px; font-weight: 500;
+      cursor: pointer; border: none; background: #fff;
+      color: #718096; transition: all .2s; line-height: 1.4;
+    }
+    .lang-btn:first-child { border-right: 1px solid #e2e8f0; }
+    .lang-btn.active { background: #4299e1; color: #fff; }
+    .lang-btn:hover:not(.active) { background: #edf2f7; }
+
+    /* i18n visibility */
+    [data-lang="en"] { display: none; }
+    [data-lang="zh"] { display: block; }
+    span[data-lang="zh"], a[data-lang="zh"], b[data-lang="zh"], i[data-lang="zh"] { display: inline; }
+    span[data-lang="en"], a[data-lang="en"], b[data-lang="en"], i[data-lang="en"] { display: none; }
+    body.lang-en [data-lang="en"] { display: block; }
+    body.lang-en span[data-lang="en"], body.lang-en a[data-lang="en"], body.lang-en b[data-lang="en"], body.lang-en i[data-lang="en"] { display: inline; }
+    body.lang-en [data-lang="zh"] { display: none; }
+    body.lang-en span[data-lang="zh"], body.lang-en a[data-lang="zh"], body.lang-en b[data-lang="zh"], body.lang-en i[data-lang="zh"] { display: none; }
+    /* keep dual-lang elements always visible */
+    [data-lang="dual"] { display: block !important; }
+    span[data-lang="dual"], a[data-lang="dual"], div[data-lang="dual"] { display: inline !important; }
+    .pub[data-lang="dual"] { display: block !important; }
+    .project-card[data-lang="dual"], .timeline-item[data-lang="dual"] { display: block !important; }
+    div.section[data-lang="dual"] { display: block !important; }
 
     /* ===== Header ===== */
     #header { padding: 48px 0 36px; }
@@ -105,6 +137,7 @@
     .badge-blue { background: #bee3f8; color: #2b6cb0; }
     .badge-green { background: #c6f6d5; color: #276749; }
     .badge-purple { background: #e9d8fd; color: #6b46c1; }
+    .badge-orange { background: #feebc8; color: #c05621; }
 
     /* ===== Publications ===== */
     .pub { margin-bottom: 14px; padding-left: 14px; border-left: 2.5px solid #e2e8f0; }
@@ -135,22 +168,38 @@
       .timeline-head { flex-direction: column; }
       .project-card .pc-head { flex-direction: column; }
       .section { padding: 24px 0 4px; }
+      .lang-toggle { top: 10px; right: 10px; }
     }
   </style>
 </head>
 <body>
+
+<!-- ===== Language Toggle ===== -->
+<div class="lang-toggle">
+  <button class="lang-btn active" onclick="switchLang('zh')">中文</button>
+  <button class="lang-btn" onclick="switchLang('en')">EN</button>
+</div>
 
 <!-- ==================== HEADER ==================== -->
 <div class="container" id="header">
   <div class="row">
     <img src="assets/avatar.jpg" alt="蒲源" class="avatar" onerror="this.style.background='#e2e8f0';this.alt='YP'" />
     <div class="info">
-      <h1>蒲源 <span style="font-weight:400;font-size:18px;color:#718096;">Yuan Pu</span></h1>
-      <div class="tagline">
+      <h1>
+        <span data-lang="zh">蒲源 <span style="font-weight:400;font-size:18px;color:#718096;">Yuan Pu</span></span>
+        <span data-lang="en">Yuan Pu <span style="font-weight:400;font-size:18px;color:#718096;">(蒲源)</span></span>
+      </h1>
+      <div class="tagline" data-lang="zh">
         <span class="tag">强化学习 (RL)</span>
         <span class="tag">世界模型</span>
-        <span class="tag">大模型强化微调</span>
+        <span class="tag">多模态大模型强化微调</span>
         <span class="tag">蒙特卡洛树搜索 (MCTS)</span>
+      </div>
+      <div class="tagline" data-lang="en">
+        <span class="tag">Reinforcement Learning</span>
+        <span class="tag">World Models</span>
+        <span class="tag">Multimodal LLM Post-training</span>
+        <span class="tag">Monte Carlo Tree Search</span>
       </div>
       <div class="social-links">
         <a href="mailto:puyuan1996@qq.com">
@@ -163,9 +212,9 @@
         </a>
         <a href="https://www.zhihu.com/column/c_1764105923730083840" target="_blank">
           <svg viewBox="0 0 24 24" fill="currentColor"><path d="M5.721 0C2.251 0 0 2.25 0 5.719V18.28C0 21.751 2.252 24 5.721 24h12.56C21.751 24 24 21.75 24 18.281V5.72C24 2.249 21.75 0 18.281 0zm1.964 4.078h5.36c.076.503.148 1.005.224 1.508h-3.282l-.576 2.756h3.282s-.036 1.386-.54 2.124c-.504.738-1.26 1.404-1.26 1.404l2.016 2.592s-1.8.216-3.6-1.404c-1.116.936-2.376 1.404-2.376 1.404l-.468-1.044s1.116-.396 2.016-1.116c-.684-.756-1.116-1.692-1.116-1.692l1.044-.36s.324.756.864 1.332c.54-.504.864-1.116 1.044-1.728H7.685l-.288-1.512h3.282l.576-2.756H7.685zm7.776.504h1.584l-.36 5.04h1.728l-.144 1.512h-1.728l-.36 3.384c.72-.072 1.44-.216 2.16-.432l.144 1.512c-1.44.432-3.024.648-3.024.648l-.144-1.512.72-.072.36-3.528h-1.728l.144-1.512h1.728z"/></svg>
-          知乎
+          <span data-lang="zh">知乎</span><span data-lang="en">Zhihu</span>
         </a>
-        <a href="tel:xxx">
+        <a href="tel:19966526719">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
           Phone
         </a>
@@ -178,24 +227,42 @@
 
 <!-- ==================== WORK EXPERIENCE ==================== -->
 <div class="container section">
-  <div class="section-title">工作经历 / Experience</div>
+  <div class="section-title">
+    <span data-lang="zh">工作经历 / Experience</span>
+    <span data-lang="en">Experience</span>
+  </div>
   <div class="timeline">
     <div class="timeline-item highlight">
       <div class="timeline-dot"></div>
       <div class="timeline-head">
         <div>
-          <span class="timeline-title">上海人工智能实验室</span>
-          <span class="timeline-sub"> · 开源决策智能实验室 (<a href="https://github.com/opendilab">OpenDILab</a>) · 研究工程师</span>
+          <span data-lang="zh">
+            <span class="timeline-title">上海人工智能实验室</span>
+            <span class="timeline-sub"> · 开源决策智能实验室 (<a href="https://github.com/opendilab">OpenDILab</a>) · 研究工程师</span>
+          </span>
+          <span data-lang="en">
+            <span class="timeline-title">Shanghai AI Laboratory</span>
+            <span class="timeline-sub"> · <a href="https://github.com/opendilab">OpenDILab</a> · Research Engineer</span>
+          </span>
         </div>
-        <span class="timeline-date">2023.04 — 至今</span>
+        <span class="timeline-date">
+          <span data-lang="zh">2023.04 — 至今</span>
+          <span data-lang="en">2023.04 — Present</span>
+        </span>
       </div>
     </div>
     <div class="timeline-item">
       <div class="timeline-dot"></div>
       <div class="timeline-head">
         <div>
-          <span class="timeline-title">商汤科技</span>
-          <span class="timeline-sub"> · 研究院 · 强化学习算法研究员</span>
+          <span data-lang="zh">
+            <span class="timeline-title">商汤科技</span>
+            <span class="timeline-sub"> · 研究院 · 强化学习算法研究员</span>
+          </span>
+          <span data-lang="en">
+            <span class="timeline-title">SenseTime</span>
+            <span class="timeline-sub"> · Research Institute · RL Algorithm Researcher</span>
+          </span>
         </div>
         <span class="timeline-date">2021.07 — 2023.04</span>
       </div>
@@ -206,69 +273,152 @@
 <hr>
 
 <!-- ==================== PROJECTS ==================== -->
+<!-- Sorted by end-date descending: ongoing first (LightRFT, PriorZero, LightZero), then ScaleZero(2026.03), MCTS+RL(2024.09), DI-engine(2023.04) -->
 <div class="container section">
-  <div class="section-title">核心项目与研究 / Projects & Research</div>
+  <div class="section-title">
+    <span data-lang="zh">核心项目与研究 / Projects &amp; Research</span>
+    <span data-lang="en">Projects &amp; Research</span>
+  </div>
+
+  <!-- 1. LightRFT — ongoing -->
   <div class="project-card">
     <div class="pc-head">
-      <div class="pc-title"><a href="https://github.com/opendilab/LightRFT">LightRFT</a>：轻量化、全模态及奖励模型驱动的强化学习微调框架</div>
-      <span class="pc-date">2025.03 — 至今</span>
+      <div class="pc-title">
+        <span data-lang="zh"><a href="https://github.com/opendilab/LightRFT">LightRFT</a>：轻量化、全模态及奖励模型驱动的强化学习微调框架</span>
+        <span data-lang="en"><a href="https://github.com/opendilab/LightRFT">LightRFT</a>: Lightweight, All-Modality & Reward-Model-Driven RL Fine-Tuning Framework</span>
+      </div>
+      <span class="pc-date">
+        <span data-lang="zh">2025.03 — 至今</span>
+        <span data-lang="en">2025.03 — Present</span>
+      </span>
     </div>
-    <div class="pc-body">
+    <div class="pc-body" data-lang="zh">
       <ul>
-        <li>作为核心成员，为百卡级多模态大模型安全对齐项目 <a href="https://arxiv.org/abs/2507.18576">SafeWork-R1</a> 构建底层训练设施。设计了统一的 Strategy 抽象层，实现了训练（DeepSpeed/FSDP）、推理（vLLM/SGLang）与验证（规则/模型）等异构任务在统一控制平面下的灵活切换与高效共置，显著提升了多模态基础模型与奖励模型协同训练的易用性和资源利用率。</li>
-        <li>主导 Off-policy 设置下的算法机制研究，致力于解决强化学习微调中的样本效率与训练稳定性难题。</li>
+        <li>作为核心成员，为百卡级多模态大模型安全对齐项目 <a href="https://arxiv.org/abs/2507.18576">SafeWork-R1</a> 构建底层训练设施。设计了统一的 Strategy 抽象层，实现了训练（DeepSpeed/FSDP）、推理（vLLM/SGLang）与验证（规则/模型）等异构任务在统一控制平面下的灵活切换与高效共置，显著提升了多模态基础模型与奖励模型协同训练的资源利用率和易用性。</li>
+        <li>主导 Off-policy 设置下的算法机制研究，致力于解决强化学习微调中的样本效率与训练稳定性难题；同时深入探索基于奖励模型的强化微调（Reward Model RFT）算法，以提升模型对齐效果。</li>
+      </ul>
+    </div>
+    <div class="pc-body" data-lang="en">
+      <ul>
+        <li>As a core member, built the underlying training infrastructure for the 100+ GPU multimodal LLM safety alignment project <a href="https://arxiv.org/abs/2507.18576">SafeWork-R1</a>. Designed a unified Strategy abstraction layer enabling flexible switching and efficient co-location of heterogeneous tasks (training via DeepSpeed/FSDP, inference via vLLM/SGLang, verification via rules/models) under a unified control plane.</li>
+        <li>Leading research on off-policy algorithms for RL fine-tuning, addressing sample efficiency and training stability challenges; exploring Reward Model RFT algorithms to improve model alignment.</li>
       </ul>
     </div>
   </div>
 
+  <!-- 2. PriorZero — ongoing (split from ScaleZero) -->
   <div class="project-card">
     <div class="pc-head">
-      <div class="pc-title"><a href="https://github.com/opendilab/LightZero">LightZero</a>：通用序列决策的 MCTS+RL 统一基准</div>
-      <span class="pc-date">2023.04 — 至今</span>
+      <div class="pc-title">
+        <span data-lang="zh">PriorZero：LLM/VLM 与 MCTS 协同决策架构</span>
+        <span data-lang="en">PriorZero: LLM/VLM & MCTS Synergistic Decision Architecture</span>
+      </div>
+      <span class="pc-date">
+        <span data-lang="zh">2025.06 — 至今</span>
+        <span data-lang="en">2025.06 — Present</span>
+      </span>
     </div>
-    <div class="pc-body">
+    <div class="pc-body" data-lang="zh">
+      <ul>
+        <li>探索 LLM/VLM 与 MCTS 的双模型协同架构。利用大模型的常识推理能力为搜索提供高质量先验（Prior），并通过 MCTS 在隐空间的规划结果反哺大模型训练。该研究旨在构建"推理-规划"协同进化的闭环系统，解决长程依赖及稀疏奖励下的复杂决策难题。</li>
+      </ul>
+    </div>
+    <div class="pc-body" data-lang="en">
+      <ul>
+        <li>Exploring a dual-model synergistic architecture combining LLM/VLM with MCTS. Leveraging commonsense reasoning capabilities of large models to provide high-quality priors for search, while using MCTS planning results in latent space to improve LLM training. Aiming to build a closed-loop "reasoning-planning" co-evolution system for complex decision-making under long-horizon dependencies and sparse rewards.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- 3. LightZero — ongoing -->
+  <div class="project-card">
+    <div class="pc-head">
+      <div class="pc-title">
+        <span data-lang="zh"><a href="https://github.com/opendilab/LightZero">LightZero</a>：通用序列决策的 MCTS+RL 统一基准</span>
+        <span data-lang="en"><a href="https://github.com/opendilab/LightZero">LightZero</a>: Unified MCTS+RL Benchmark for General Sequential Decision</span>
+      </div>
+      <span class="pc-date">
+        <span data-lang="zh">2023.04 — 至今</span>
+        <span data-lang="en">2023.04 — Present</span>
+      </span>
+    </div>
+    <div class="pc-body" data-lang="zh">
       <ul>
         <li><span class="badge badge-red">NeurIPS 2023 Spotlight</span> 项目负责人。该框架旨在标准化 MCTS+RL 算法族，集成了 AlphaZero、MuZero 等 10 余种主流算法，是目前最全面的开源 MCTS 算法库。</li>
-        <li>采用 Python/C++ 混合编程（Core MCTS in C++），设计了轻量化、模块化的系统架构。通过多进程并行数据采集与 DDP 分布式训练支持，显著提升了训练效率与扩展性。</li>
+        <li>采用 Python/C++ 混合编程（Core MCTS in C++），设计了轻量化、模块化的系统架构。通过多进程并行数据采集与 DDP 分布式训练支持，显著提升了在 Atari、DMC 及棋类博弈等复杂环境下的训练效率与扩展性。</li>
+      </ul>
+    </div>
+    <div class="pc-body" data-lang="en">
+      <ul>
+        <li><span class="badge badge-red">NeurIPS 2023 Spotlight</span> Project lead. The framework standardizes the MCTS+RL algorithm family, integrating 10+ mainstream algorithms including AlphaZero and MuZero — the most comprehensive open-source MCTS library to date.</li>
+        <li>Designed a lightweight, modular architecture using Python/C++ hybrid programming (Core MCTS in C++). Multi-process parallel data collection and DDP distributed training significantly improved efficiency and scalability across Atari, DMC, and board game environments.</li>
       </ul>
     </div>
   </div>
 
+  <!-- 4. ScaleZero — ended 2026.03 -->
   <div class="project-card">
     <div class="pc-head">
-      <div class="pc-title">通用高效的 MCTS+RL 算法研究</div>
+      <div class="pc-title">
+        <span data-lang="zh">ScaleZero：可扩展的异构多任务学习</span>
+        <span data-lang="en">ScaleZero: Scalable Heterogeneous Multi-Task Learning</span>
+      </div>
+      <span class="pc-date">2024.05 — 2026.03</span>
+    </div>
+    <div class="pc-body" data-lang="zh">
+      <ul>
+        <li><span class="badge badge-purple">ICLR 2026</span> <a href="https://openreview.net/pdf/55ee20c7b5f0faf055506c5c71fa56f0cb2b17c0.pdf">ScaleZero</a>：针对大规模异构多任务学习中的可塑性（Plasticity）与效率瓶颈，系统性优化了世界模型设计。仅依托在线隐空间规划，在 Atari、DMC、Jericho 等多领域基准上实现了超越专用单任务模型的性能。设计了基于 LoRA 的在线动态参数扩展策略，能够根据任务训练进程自适应分配计算资源，在 DMC 任务上仅需约 75% 的交互步数即可达到单任务基线的性能水平。</li>
+      </ul>
+    </div>
+    <div class="pc-body" data-lang="en">
+      <ul>
+        <li><span class="badge badge-purple">ICLR 2026</span> <a href="https://openreview.net/pdf/55ee20c7b5f0faf055506c5c71fa56f0cb2b17c0.pdf">ScaleZero</a>: Systematically optimized world model design for plasticity and efficiency bottlenecks in large-scale heterogeneous multi-task learning. Achieved performance surpassing dedicated single-task models on Atari, DMC, and Jericho benchmarks using only online latent-space planning. Designed a LoRA-based online dynamic parameter expansion strategy that adaptively allocates compute resources, reaching single-task baseline performance with only ~75% of interaction steps on DMC tasks.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- 5. MCTS+RL Algorithm Research — ended 2024.09 -->
+  <div class="project-card">
+    <div class="pc-head">
+      <div class="pc-title">
+        <span data-lang="zh">通用高效的 MCTS+RL 算法研究</span>
+        <span data-lang="en">General & Efficient MCTS+RL Algorithm Research</span>
+      </div>
       <span class="pc-date">2023.09 — 2024.09</span>
     </div>
-    <div class="pc-body">
+    <div class="pc-body" data-lang="zh">
       <ul>
-        <li><span class="badge badge-blue">TMLR 2025</span> <a href="https://openreview.net/forum?id=Gl6dF9soQo">UniZero</a>：独立提出基于 Transformer 的模块化世界模型架构。通过构建共享隐空间并联合优化长时序动态预测与决策目标，有效解决了 MCTS 算法在异构状态动作空间及长程依赖任务中的泛化难题。</li>
-        <li><span class="badge badge-green">CoRL 2025 Workshop</span> <a href="https://arxiv.org/pdf/2404.16364">ReZero</a>：合作提出反向重分析（Backward-view Reanalyze）机制，在保持样本效率的同时，将 MCTS 类算法的训练时间效率提升 1.5-2 倍。</li>
+        <li><span class="badge badge-blue">TMLR 2025</span> <a href="https://openreview.net/forum?id=Gl6dF9soQo">UniZero</a>：独立提出基于 Transformer 的模块化世界模型架构。通过构建共享隐空间并联合优化长时序动态预测与决策目标，有效解决了 MCTS 算法在异构状态动作空间及长程依赖任务中的泛化难题，在单/多任务基准上均取得优异性能。</li>
+        <li><span class="badge badge-green">CoRL 2025 RemembeRL Workshop</span> <a href="https://openreview.net/forum?id=F9Y7j3AJTu">ReZero</a>：合作提出反向重分析（Backward-view Reanalyze）机制，在保持样本效率的同时，将 MCTS 类算法的训练时间效率提升 1.5-2 倍。</li>
+      </ul>
+    </div>
+    <div class="pc-body" data-lang="en">
+      <ul>
+        <li><span class="badge badge-blue">TMLR 2025</span> <a href="https://openreview.net/forum?id=Gl6dF9soQo">UniZero</a>: Independently proposed a modular world model architecture based on Transformer. By constructing a shared latent space and jointly optimizing long-horizon dynamics prediction and decision objectives, effectively addressed generalization challenges of MCTS in heterogeneous state-action spaces and long-horizon tasks.</li>
+        <li><span class="badge badge-green">CoRL 2025 RemembeRL Workshop</span> <a href="https://openreview.net/forum?id=F9Y7j3AJTu">ReZero</a>: Co-proposed the Backward-view Reanalyze mechanism, improving training time efficiency of MCTS-based algorithms by 1.5-2x while maintaining sample efficiency.</li>
       </ul>
     </div>
   </div>
 
+  <!-- 6. DI-engine — ended 2023.04 -->
   <div class="project-card">
     <div class="pc-head">
-      <div class="pc-title">ScaleZero：可扩展的异构多任务学习</div>
-      <span class="pc-date">2024.05 — 至今</span>
-    </div>
-    <div class="pc-body">
-      <ul>
-        <li><span class="badge badge-purple">ICLR 2026</span> <a href="https://openreview.net/pdf/55ee20c7b5f0faf055506c5c71fa56f0cb2b17c0.pdf">ScaleZero</a>：针对大规模异构多任务学习中的可塑性与效率瓶颈，系统性优化了世界模型设计。仅依托在线隐空间规划，在 Atari、DMC、Jericho 等多领域基准上实现了超越专用单任务模型的性能。设计了基于 LoRA 的在线动态参数扩展策略，在 DMC 任务上仅需约 75% 的交互步数即可达到单任务基线的性能水平。</li>
-        <li>PriorZero (WIP)：探索 LLM/VLM 与 MCTS 的双模型协同架构。利用大模型的常识推理能力为搜索提供高质量先验，并通过 MCTS 在隐空间的规划结果反哺大模型训练，构建"推理-规划"协同进化的闭环系统。</li>
-      </ul>
-    </div>
-  </div>
-
-  <div class="project-card">
-    <div class="pc-head">
-      <div class="pc-title">DI-engine 强化学习开源框架与 PPO x Family 公开课</div>
+      <div class="pc-title">
+        <span data-lang="zh">DI-engine 强化学习开源框架与 PPO x Family 公开课</span>
+        <span data-lang="en">DI-engine RL Framework & PPO x Family Course</span>
+      </div>
       <span class="pc-date">2021.07 — 2023.04</span>
     </div>
-    <div class="pc-body">
+    <div class="pc-body" data-lang="zh">
       <ul>
-        <li>作为 Top-2 贡献者参与 <a href="https://github.com/opendilab/DI-engine">DI-engine</a> 研发（3.6k+ Stars）。该框架灵活支持了从 DQN、PPO 到 DreamerV3、NGU 等全栈算法。重点负责了探索机制、POMDP 支持及 Model-based RL 模块的架构设计与实现。</li>
-        <li>深度参与决策智能入门公开课 <a href="https://github.com/opendilab/PPOxFamily">PPO x Family</a> 制作（2.5k+ Stars）。负责多模态观测、复杂动作空间及多智能体协作等核心章节的实验设计与教程编写。</li>
+        <li>作为 Top-2 贡献者参与 <a href="https://github.com/opendilab/DI-engine">DI-engine</a> 研发（3.6k+ Stars）。该框架通过算法与系统协同设计和抽象，灵活支持了从 DQN、PPO 到 DreamerV3、NGU 等全栈算法。重点负责了探索机制（Exploration）、POMDP 支持及 Model-based RL 模块的架构设计与实现。</li>
+        <li>深度参与决策智能入门公开课 <a href="https://github.com/opendilab/PPOxFamily">PPO x Family</a> 制作（2.5k+ Stars）。负责多模态观测、复杂动作空间及多智能体协作等核心章节的实验设计与教程编写，帮助社区初学者从理论到实践全面掌握 PPO 算法家族。</li>
+      </ul>
+    </div>
+    <div class="pc-body" data-lang="en">
+      <ul>
+        <li>Top-2 contributor to <a href="https://github.com/opendilab/DI-engine">DI-engine</a> (3.6k+ Stars). The framework supports a full stack of algorithms from DQN, PPO to DreamerV3, NGU through co-designed algorithm-system abstractions. Led the architecture design and implementation of exploration mechanisms, POMDP support, and model-based RL modules.</li>
+        <li>Deeply involved in the <a href="https://github.com/opendilab/PPOxFamily">PPO x Family</a> introductory course on decision intelligence (2.5k+ Stars). Designed experiments and wrote tutorials for core chapters on multimodal observations, complex action spaces, and multi-agent cooperation.</li>
       </ul>
     </div>
   </div>
@@ -278,7 +428,11 @@
 
 <!-- ==================== PUBLICATIONS ==================== -->
 <div class="container section">
-  <div class="section-title">发表论文 / Publications</div>
+  <div class="section-title">
+    <span data-lang="zh">发表论文 / Publications</span>
+    <span data-lang="en">Publications</span>
+  </div>
+
   <div class="pub">
     <div class="pub-venue">ICLR 2026</div>
     <div class="pub-title"><b>Pu, Y.</b>, et al. "One Model for All Tasks: Leveraging Efficient World Models in Multi-Task Planning." arXiv preprint arXiv:2509.07945 (2025).</div>
@@ -296,8 +450,8 @@
     <div class="pub-title">Niu, Y., <b>Pu, Y.</b>, et al. "LightZero: A unified benchmark for Monte Carlo tree search in general sequential decision scenarios." <a href="https://nips.cc/virtual/2023/poster/73472"><i>Advances in Neural Information Processing Systems</i></a>, 36.</div>
   </div>
   <div class="pub">
-    <div class="pub-venue">CoRL 2025 Workshop</div>
-    <div class="pub-title">Xuan, C., Niu, Y., <b>Pu, Y.</b>, et al. "ReZero: Boosting MCTS-based algorithms by backward-view and entire-buffer reanalyze." <a href="https://arxiv.org/pdf/2404.16364">arXiv preprint</a>.</div>
+    <div class="pub-venue">CoRL 2025 RemembeRL Workshop</div>
+    <div class="pub-title">Xuan, C., Niu, Y., <b>Pu, Y.</b>, et al. "ReZero: Boosting MCTS-based algorithms by backward-view and entire-buffer reanalyze." <a href="https://openreview.net/forum?id=F9Y7j3AJTu">OpenReview</a>.</div>
   </div>
   <div class="pub">
     <div class="pub-venue">Preprint 2024</div>
@@ -313,14 +467,23 @@
 
 <!-- ==================== EDUCATION ==================== -->
 <div class="container section">
-  <div class="section-title">教育背景 / Education</div>
+  <div class="section-title">
+    <span data-lang="zh">教育背景 / Education</span>
+    <span data-lang="en">Education</span>
+  </div>
   <div class="timeline">
     <div class="timeline-item">
       <div class="timeline-dot"></div>
       <div class="timeline-head">
         <div>
-          <span class="timeline-title">中国科学技术大学</span>
-          <span class="timeline-sub"> · 硕士，电子工程与信息科学</span>
+          <span data-lang="zh">
+            <span class="timeline-title">中国科学技术大学</span>
+            <span class="timeline-sub"> · 硕士，电子工程与信息科学</span>
+          </span>
+          <span data-lang="en">
+            <span class="timeline-title">University of Science and Technology of China</span>
+            <span class="timeline-sub"> · M.S. in Electronic Engineering & Information Science</span>
+          </span>
         </div>
         <span class="timeline-date">2018 — 2021</span>
       </div>
@@ -329,8 +492,14 @@
       <div class="timeline-dot"></div>
       <div class="timeline-head">
         <div>
-          <span class="timeline-title">哈尔滨工业大学（威海）</span>
-          <span class="timeline-sub"> · 学士，通信工程，专业排名 3/91</span>
+          <span data-lang="zh">
+            <span class="timeline-title">哈尔滨工业大学（威海）</span>
+            <span class="timeline-sub"> · 学士，通信工程，专业排名 3/91</span>
+          </span>
+          <span data-lang="en">
+            <span class="timeline-title">Harbin Institute of Technology (Weihai)</span>
+            <span class="timeline-sub"> · B.E. in Communication Engineering, Rank: 3/91</span>
+          </span>
         </div>
         <span class="timeline-date">2014 — 2018</span>
       </div>
@@ -342,18 +511,34 @@
 
 <!-- ==================== SKILLS ==================== -->
 <div class="container section">
-  <div class="section-title">技能 / Skills</div>
+  <div class="section-title">
+    <span data-lang="zh">技能 / Skills</span>
+    <span data-lang="en">Skills</span>
+  </div>
+
   <div class="skill-group">
-    <div class="skill-label">强化学习 (RL)</div>
-    <div class="skill-desc">熟悉 Python/PyTorch，拥有丰富的 RL 算法设计开发与性能优化经验。在基于世界模型的 RL (World Models)、蒙特卡洛树搜索 (MCTS)、高效探索 (Exploration) 及多任务学习等前沿方向有深入研究与顶会发表记录。</div>
+    <div class="skill-label">
+      <span data-lang="zh">强化学习 (RL)</span>
+      <span data-lang="en">Reinforcement Learning (RL)</span>
+    </div>
+    <div class="skill-desc" data-lang="zh">熟悉 Python/PyTorch，拥有丰富的 RL 算法设计开发与性能优化经验。在基于世界模型的 RL (World Models)、蒙特卡洛树搜索 (MCTS)、高效探索 (Exploration) 及多任务学习等前沿方向有深入研究与顶会发表记录。</div>
+    <div class="skill-desc" data-lang="en">Proficient in Python/PyTorch with extensive experience in RL algorithm design, development, and performance optimization. In-depth research and top-venue publications in world model-based RL, Monte Carlo Tree Search (MCTS), efficient exploration, and multi-task learning.</div>
   </div>
   <div class="skill-group">
-    <div class="skill-label">大语言模型 (LLM)</div>
-    <div class="skill-desc">具备百亿参数级多模态大模型的后训练 (Post-training) 实战经验。熟练掌握 PPO、GRPO 等强化学习微调技术，在样本高效及训练稳定性等方面有独立探究经验。密切关注 RLVR/RLHF 与世界模型相融合的前沿技术。</div>
+    <div class="skill-label">
+      <span data-lang="zh">大语言模型 (LLM)</span>
+      <span data-lang="en">Large Language Models (LLM)</span>
+    </div>
+    <div class="skill-desc" data-lang="zh">具备百亿参数级多模态大模型的后训练 (Post-training) 实战经验。熟练掌握 PPO、GRPO 等强化学习微调技术，在样本高效及训练稳定性等方面有独立探究经验。密切关注 RLVR/RLHF 与世界模型相融合的前沿技术。</div>
+    <div class="skill-desc" data-lang="en">Hands-on post-training experience with 10B+ parameter multimodal LLMs. Proficient in PPO, GRPO and other RL fine-tuning techniques, with independent research on sample efficiency and training stability. Closely tracking the frontier of RLVR/RLHF integrated with world models.</div>
   </div>
   <div class="skill-group">
-    <div class="skill-label">技术影响力</div>
-    <div class="skill-desc">长期维护知乎专栏 <a href="https://www.zhihu.com/column/c_1764105923730083840">《决策智能与强化学习》</a>、<a href="https://www.zhihu.com/column/c_1764308735227662336">《MCTS+RL》</a> 及 <a href="https://www.zhihu.com/column/c_1812498902877876224">《基础模型和多模态交互》</a>。创建并维护前沿主题资源库 <a href="https://github.com/opendilab/awesome-exploration-rl">awesome-exploration-rl</a> 与 <a href="https://github.com/opendilab/awesome-rlvr">awesome-RLVR</a>/<a href="https://github.com/opendilab/awesome-rlkf">RLHF</a> 等。</div>
+    <div class="skill-label">
+      <span data-lang="zh">技术影响力</span>
+      <span data-lang="en">Community Impact</span>
+    </div>
+    <div class="skill-desc" data-lang="zh">长期维护知乎专栏 <a href="https://www.zhihu.com/column/c_1764105923730083840">《决策智能与强化学习》</a>、<a href="https://www.zhihu.com/column/c_1764308735227662336">《MCTS+RL》</a> 及 <a href="https://www.zhihu.com/column/c_1812498902877876224">《基础模型和多模态交互》</a>。创建并维护前沿主题资源库 <a href="https://github.com/opendilab/awesome-exploration-rl">awesome-exploration-rl</a> 与 <a href="https://github.com/opendilab/awesome-rlvr">awesome-RLVR</a>/<a href="https://github.com/opendilab/awesome-rlkf">RLHF</a> 等，持续追踪领域最新动态。</div>
+    <div class="skill-desc" data-lang="en">Maintaining Zhihu columns on <a href="https://www.zhihu.com/column/c_1764105923730083840">Decision Intelligence & RL</a>, <a href="https://www.zhihu.com/column/c_1764308735227662336">MCTS+RL</a>, and <a href="https://www.zhihu.com/column/c_1812498902877876224">Foundation Models & Multimodal Interaction</a>. Created and maintain curated resource repositories including <a href="https://github.com/opendilab/awesome-exploration-rl">awesome-exploration-rl</a>, <a href="https://github.com/opendilab/awesome-rlvr">awesome-RLVR</a>/<a href="https://github.com/opendilab/awesome-rlkf">RLHF</a>.</div>
   </div>
 </div>
 
@@ -361,20 +546,59 @@
 
 <!-- ==================== OTHER ==================== -->
 <div class="container section">
-  <div class="section-title">其他信息 / Misc</div>
-  <div class="info-grid">
-    <div class="info-item"><strong>学术服务：</strong>担任 ICLR 2026、NeurIPS 2025 Workshop 等会议审稿人。连续 3 年受邀于清华大学深圳研究生院《大数据分析》课程讲授《<a href="https://github.com/puyuan1996/rl_mcts_intro">强化学习与 MCTS 基础</a>》。作为核心负责人参与《世界模型》专业书籍编写 (WIP)。</div>
+  <div class="section-title">
+    <span data-lang="zh">其他信息 / Misc</span>
+    <span data-lang="en">Misc</span>
+  </div>
+  <div class="info-grid" data-lang="zh">
+    <div class="info-item"><strong>学术服务：</strong>担任 ICLR 2026、NeurIPS 2025 Workshop 审稿人。连续 3 年受邀于清华大学深圳研究生院《大数据分析》课程讲授《<a href="https://github.com/puyuan1996/rl_mcts_intro">强化学习与 MCTS 基础</a>》。作为核心负责人参与《世界模型》专业书籍编写 (WIP)。</div>
     <div class="info-item"><strong>荣誉奖项：</strong>本科期间连续三年获国家励志奖学金，荣获山东省优秀毕业生称号。</div>
-    <div class="info-item"><strong>综合素质：</strong>通过全国计算机四级、英语六级 (CET-6)。具备对前沿科技的好奇心与技术攻关精神，热爱羽毛球、登山、旅行等。</div>
+    <div class="info-item"><strong>综合素质：</strong>通过全国计算机四级、英语六级 (CET-6)。具备对前沿科技的好奇心与技术攻关精神，热爱羽毛球与登山。</div>
+  </div>
+  <div class="info-grid" data-lang="en">
+    <div class="info-item"><strong>Academic Service: </strong>Reviewer for ICLR 2026 and NeurIPS 2025 Workshop. Guest lecturer on <a href="https://github.com/puyuan1996/rl_mcts_intro">RL & MCTS Fundamentals</a> at Tsinghua University Shenzhen for 3 consecutive years. Core contributor to a professional book on World Models (WIP).</div>
+    <div class="info-item"><strong>Honors: </strong>National Encouragement Scholarship for 3 consecutive years during undergraduate studies. Outstanding Graduate of Shandong Province.</div>
+    <div class="info-item"><strong>Misc: </strong>National Computer Rank Examination Level 4, CET-6. Passionate about badminton and hiking.</div>
   </div>
 </div>
 
 <!-- ==================== FOOTER ==================== -->
 <footer>
   <div class="container">
-    &copy; 2026 蒲源 Yuan Pu · Built with pure HTML & CSS
+    &copy; 2025 蒲源 Yuan Pu &middot; Built with pure HTML &amp; CSS
+    <br>
+    <span data-lang="zh">最后更新：</span><span data-lang="en">Last updated: </span><span id="update-date"></span>
   </div>
 </footer>
+
+<!-- ===== Language Switch Script ===== -->
+<script>
+  function switchLang(lang) {
+    const btns = document.querySelectorAll('.lang-btn');
+    btns.forEach(b => b.classList.remove('active'));
+    if (lang === 'en') {
+      document.body.classList.add('lang-en');
+      btns[1].classList.add('active');
+      document.documentElement.lang = 'en';
+    } else {
+      document.body.classList.remove('lang-en');
+      btns[0].classList.add('active');
+      document.documentElement.lang = 'zh-CN';
+    }
+    // persist preference
+    try { localStorage.setItem('lang', lang); } catch(e) {}
+  }
+  // restore on load
+  (function() {
+    try {
+      var saved = localStorage.getItem('lang');
+      if (saved === 'en') switchLang('en');
+    } catch(e) {}
+    // set last-updated date
+    var d = new Date(document.lastModified);
+    document.getElementById('update-date').textContent = d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
+  })();
+</script>
 
 </body>
 </html>
