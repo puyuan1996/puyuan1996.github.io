@@ -1,1 +1,380 @@
-"Hello World" 
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>蒲源 | Yuan Pu - AI Researcher</title>
+  <meta name="description" content="蒲源的个人主页 - 强化学习、世界模型、MCTS、大模型强化微调">
+  <style>
+    /* ===== Reset & Base ===== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans SC", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      color: #2d3748; background: #fff;
+      line-height: 1.7; font-size: 15px;
+    }
+    a { color: #2b6cb0; text-decoration: none; transition: color .2s; }
+    a:hover { color: #1a4971; text-decoration: underline; }
+    ::selection { background: #bee3f8; }
+
+    /* ===== Layout ===== */
+    .container { max-width: 820px; margin: 0 auto; padding: 0 24px; }
+
+    /* ===== Header ===== */
+    #header { padding: 48px 0 36px; }
+    #header .row { display: flex; align-items: center; gap: 32px; }
+    #header .avatar {
+      width: 120px; height: 120px; border-radius: 50%;
+      object-fit: cover; flex-shrink: 0;
+      border: 3px solid #e2e8f0;
+    }
+    #header .info h1 { font-size: 28px; font-weight: 700; color: #1a202c; margin-bottom: 4px; }
+    #header .info .tagline {
+      font-size: 14px; color: #718096; margin-bottom: 12px; line-height: 1.6;
+    }
+    #header .info .tagline .tag {
+      display: inline-block; background: #edf2f7; color: #4a5568;
+      padding: 2px 10px; border-radius: 12px; font-size: 12.5px;
+      margin: 2px 4px 2px 0; white-space: nowrap;
+    }
+    .social-links { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+    .social-links a {
+      display: inline-flex; align-items: center; gap: 5px;
+      font-size: 13px; color: #4a5568; padding: 4px 10px;
+      border: 1px solid #e2e8f0; border-radius: 6px;
+      transition: all .2s;
+    }
+    .social-links a:hover { background: #edf2f7; color: #2b6cb0; text-decoration: none; border-color: #cbd5e0; }
+    .social-links svg { width: 16px; height: 16px; }
+
+    /* ===== Divider ===== */
+    hr { border: none; border-top: 1px solid #e2e8f0; margin: 0; }
+
+    /* ===== Section ===== */
+    .section { padding: 32px 0 8px; }
+    .section-title {
+      font-size: 13px; font-weight: 600; text-transform: uppercase;
+      letter-spacing: 1.5px; color: #a0aec0; margin-bottom: 20px;
+    }
+
+    /* ===== Timeline ===== */
+    .timeline { position: relative; padding-left: 28px; }
+    .timeline::before {
+      content: ''; position: absolute; left: 5px; top: 8px; bottom: 0;
+      width: 1.5px; background: #e2e8f0;
+    }
+    .timeline-item { position: relative; margin-bottom: 28px; }
+    .timeline-item:last-child { margin-bottom: 0; }
+    .timeline-dot {
+      position: absolute; left: -28px; top: 7px;
+      width: 11px; height: 11px; border-radius: 50%;
+      background: #fff; border: 2.5px solid #4299e1;
+    }
+    .timeline-item.highlight .timeline-dot { background: #4299e1; }
+    .timeline-head { display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 4px; margin-bottom: 4px; }
+    .timeline-title { font-size: 15px; font-weight: 600; color: #1a202c; }
+    .timeline-sub { font-size: 13.5px; color: #718096; }
+    .timeline-date { font-size: 12.5px; color: #a0aec0; white-space: nowrap; }
+    .timeline-body { font-size: 14px; color: #4a5568; line-height: 1.75; }
+    .timeline-body ul { padding-left: 18px; margin-top: 6px; }
+    .timeline-body li { margin-bottom: 5px; }
+    .timeline-body li::marker { color: #cbd5e0; }
+
+    /* ===== Project Cards ===== */
+    .project-card {
+      border: 1px solid #e2e8f0; border-radius: 8px;
+      padding: 16px 20px; margin-bottom: 14px;
+      transition: box-shadow .2s, border-color .2s;
+    }
+    .project-card:hover { border-color: #bee3f8; box-shadow: 0 2px 12px rgba(66,153,225,.1); }
+    .project-card .pc-head { display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 4px; margin-bottom: 6px; }
+    .project-card .pc-title { font-size: 15px; font-weight: 600; color: #1a202c; }
+    .project-card .pc-title a { color: #2b6cb0; }
+    .project-card .pc-date { font-size: 12.5px; color: #a0aec0; }
+    .project-card .pc-body { font-size: 14px; color: #4a5568; line-height: 1.75; }
+    .project-card .pc-body ul { padding-left: 18px; margin-top: 6px; }
+    .project-card .pc-body li { margin-bottom: 5px; }
+    .project-card .pc-body li::marker { color: #cbd5e0; }
+    .badge {
+      display: inline-block; font-size: 11px; font-weight: 600;
+      padding: 1px 7px; border-radius: 4px; margin-right: 4px;
+      vertical-align: middle;
+    }
+    .badge-red { background: #fed7d7; color: #c53030; }
+    .badge-blue { background: #bee3f8; color: #2b6cb0; }
+    .badge-green { background: #c6f6d5; color: #276749; }
+    .badge-purple { background: #e9d8fd; color: #6b46c1; }
+
+    /* ===== Publications ===== */
+    .pub { margin-bottom: 14px; padding-left: 14px; border-left: 2.5px solid #e2e8f0; }
+    .pub:hover { border-left-color: #4299e1; }
+    .pub .pub-venue { font-size: 12px; font-weight: 600; color: #e53e3e; margin-bottom: 2px; }
+    .pub .pub-title { font-size: 14px; color: #2d3748; line-height: 1.6; }
+    .pub .pub-authors { font-size: 12.5px; color: #a0aec0; margin-top: 2px; }
+
+    /* ===== Skills ===== */
+    .skill-group { margin-bottom: 16px; }
+    .skill-label { font-size: 13px; font-weight: 600; color: #2d3748; margin-bottom: 4px; }
+    .skill-desc { font-size: 14px; color: #4a5568; line-height: 1.75; }
+
+    /* ===== Info Grid ===== */
+    .info-grid { display: grid; grid-template-columns: 1fr; gap: 12px; }
+    .info-item { font-size: 14px; color: #4a5568; line-height: 1.75; }
+    .info-item strong { color: #2d3748; }
+
+    /* ===== Footer ===== */
+    footer { text-align: center; padding: 40px 0 32px; color: #a0aec0; font-size: 12px; }
+
+    /* ===== Responsive ===== */
+    @media (max-width: 640px) {
+      #header .row { flex-direction: column; text-align: center; gap: 16px; }
+      #header .avatar { width: 96px; height: 96px; }
+      #header .info h1 { font-size: 24px; }
+      .social-links { justify-content: center; }
+      .timeline-head { flex-direction: column; }
+      .project-card .pc-head { flex-direction: column; }
+      .section { padding: 24px 0 4px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ==================== HEADER ==================== -->
+<div class="container" id="header">
+  <div class="row">
+    <img src="assets/avatar.jpg" alt="蒲源" class="avatar" onerror="this.style.background='#e2e8f0';this.alt='YP'" />
+    <div class="info">
+      <h1>蒲源 <span style="font-weight:400;font-size:18px;color:#718096;">Yuan Pu</span></h1>
+      <div class="tagline">
+        <span class="tag">强化学习 (RL)</span>
+        <span class="tag">世界模型</span>
+        <span class="tag">大模型强化微调</span>
+        <span class="tag">蒙特卡洛树搜索 (MCTS)</span>
+      </div>
+      <div class="social-links">
+        <a href="mailto:puyuan1996@qq.com">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 4L12 13 2 4"/></svg>
+          Email
+        </a>
+        <a href="https://github.com/puyuan1996/" target="_blank">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+          GitHub
+        </a>
+        <a href="https://www.zhihu.com/column/c_1764105923730083840" target="_blank">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M5.721 0C2.251 0 0 2.25 0 5.719V18.28C0 21.751 2.252 24 5.721 24h12.56C21.751 24 24 21.75 24 18.281V5.72C24 2.249 21.75 0 18.281 0zm1.964 4.078h5.36c.076.503.148 1.005.224 1.508h-3.282l-.576 2.756h3.282s-.036 1.386-.54 2.124c-.504.738-1.26 1.404-1.26 1.404l2.016 2.592s-1.8.216-3.6-1.404c-1.116.936-2.376 1.404-2.376 1.404l-.468-1.044s1.116-.396 2.016-1.116c-.684-.756-1.116-1.692-1.116-1.692l1.044-.36s.324.756.864 1.332c.54-.504.864-1.116 1.044-1.728H7.685l-.288-1.512h3.282l.576-2.756H7.685zm7.776.504h1.584l-.36 5.04h1.728l-.144 1.512h-1.728l-.36 3.384c.72-.072 1.44-.216 2.16-.432l.144 1.512c-1.44.432-3.024.648-3.024.648l-.144-1.512.72-.072.36-3.528h-1.728l.144-1.512h1.728z"/></svg>
+          知乎
+        </a>
+        <a href="tel:xxx">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+          Phone
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr>
+
+<!-- ==================== WORK EXPERIENCE ==================== -->
+<div class="container section">
+  <div class="section-title">工作经历 / Experience</div>
+  <div class="timeline">
+    <div class="timeline-item highlight">
+      <div class="timeline-dot"></div>
+      <div class="timeline-head">
+        <div>
+          <span class="timeline-title">上海人工智能实验室</span>
+          <span class="timeline-sub"> · 开源决策智能实验室 (<a href="https://github.com/opendilab">OpenDILab</a>) · 研究工程师</span>
+        </div>
+        <span class="timeline-date">2023.04 — 至今</span>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-head">
+        <div>
+          <span class="timeline-title">商汤科技</span>
+          <span class="timeline-sub"> · 研究院 · 强化学习算法研究员</span>
+        </div>
+        <span class="timeline-date">2021.07 — 2023.04</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr>
+
+<!-- ==================== PROJECTS ==================== -->
+<div class="container section">
+  <div class="section-title">核心项目与研究 / Projects & Research</div>
+  <div class="project-card">
+    <div class="pc-head">
+      <div class="pc-title"><a href="https://github.com/opendilab/LightRFT">LightRFT</a>：轻量化、全模态及奖励模型驱动的强化学习微调框架</div>
+      <span class="pc-date">2025.03 — 至今</span>
+    </div>
+    <div class="pc-body">
+      <ul>
+        <li>作为核心成员，为百卡级多模态大模型安全对齐项目 <a href="https://arxiv.org/abs/2507.18576">SafeWork-R1</a> 构建底层训练设施。设计了统一的 Strategy 抽象层，实现了训练（DeepSpeed/FSDP）、推理（vLLM/SGLang）与验证（规则/模型）等异构任务在统一控制平面下的灵活切换与高效共置，显著提升了多模态基础模型与奖励模型协同训练的易用性和资源利用率。</li>
+        <li>主导 Off-policy 设置下的算法机制研究，致力于解决强化学习微调中的样本效率与训练稳定性难题。</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="project-card">
+    <div class="pc-head">
+      <div class="pc-title"><a href="https://github.com/opendilab/LightZero">LightZero</a>：通用序列决策的 MCTS+RL 统一基准</div>
+      <span class="pc-date">2023.04 — 至今</span>
+    </div>
+    <div class="pc-body">
+      <ul>
+        <li><span class="badge badge-red">NeurIPS 2023 Spotlight</span> 项目负责人。该框架旨在标准化 MCTS+RL 算法族，集成了 AlphaZero、MuZero 等 10 余种主流算法，是目前最全面的开源 MCTS 算法库。</li>
+        <li>采用 Python/C++ 混合编程（Core MCTS in C++），设计了轻量化、模块化的系统架构。通过多进程并行数据采集与 DDP 分布式训练支持，显著提升了训练效率与扩展性。</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="project-card">
+    <div class="pc-head">
+      <div class="pc-title">通用高效的 MCTS+RL 算法研究</div>
+      <span class="pc-date">2023.09 — 2024.09</span>
+    </div>
+    <div class="pc-body">
+      <ul>
+        <li><span class="badge badge-blue">TMLR 2025</span> <a href="https://openreview.net/forum?id=Gl6dF9soQo">UniZero</a>：独立提出基于 Transformer 的模块化世界模型架构。通过构建共享隐空间并联合优化长时序动态预测与决策目标，有效解决了 MCTS 算法在异构状态动作空间及长程依赖任务中的泛化难题。</li>
+        <li><span class="badge badge-green">CoRL 2025 Workshop</span> <a href="https://arxiv.org/pdf/2404.16364">ReZero</a>：合作提出反向重分析（Backward-view Reanalyze）机制，在保持样本效率的同时，将 MCTS 类算法的训练时间效率提升 1.5-2 倍。</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="project-card">
+    <div class="pc-head">
+      <div class="pc-title">ScaleZero：可扩展的异构多任务学习</div>
+      <span class="pc-date">2024.05 — 至今</span>
+    </div>
+    <div class="pc-body">
+      <ul>
+        <li><span class="badge badge-purple">ICLR 2026</span> <a href="https://openreview.net/pdf/55ee20c7b5f0faf055506c5c71fa56f0cb2b17c0.pdf">ScaleZero</a>：针对大规模异构多任务学习中的可塑性与效率瓶颈，系统性优化了世界模型设计。仅依托在线隐空间规划，在 Atari、DMC、Jericho 等多领域基准上实现了超越专用单任务模型的性能。设计了基于 LoRA 的在线动态参数扩展策略，在 DMC 任务上仅需约 75% 的交互步数即可达到单任务基线的性能水平。</li>
+        <li>PriorZero (WIP)：探索 LLM/VLM 与 MCTS 的双模型协同架构。利用大模型的常识推理能力为搜索提供高质量先验，并通过 MCTS 在隐空间的规划结果反哺大模型训练，构建"推理-规划"协同进化的闭环系统。</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="project-card">
+    <div class="pc-head">
+      <div class="pc-title">DI-engine 强化学习开源框架与 PPO x Family 公开课</div>
+      <span class="pc-date">2021.07 — 2023.04</span>
+    </div>
+    <div class="pc-body">
+      <ul>
+        <li>作为 Top-2 贡献者参与 <a href="https://github.com/opendilab/DI-engine">DI-engine</a> 研发（3.6k+ Stars）。该框架灵活支持了从 DQN、PPO 到 DreamerV3、NGU 等全栈算法。重点负责了探索机制、POMDP 支持及 Model-based RL 模块的架构设计与实现。</li>
+        <li>深度参与决策智能入门公开课 <a href="https://github.com/opendilab/PPOxFamily">PPO x Family</a> 制作（2.5k+ Stars）。负责多模态观测、复杂动作空间及多智能体协作等核心章节的实验设计与教程编写。</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<hr>
+
+<!-- ==================== PUBLICATIONS ==================== -->
+<div class="container section">
+  <div class="section-title">发表论文 / Publications</div>
+  <div class="pub">
+    <div class="pub-venue">ICLR 2026</div>
+    <div class="pub-title"><b>Pu, Y.</b>, et al. "One Model for All Tasks: Leveraging Efficient World Models in Multi-Task Planning." arXiv preprint arXiv:2509.07945 (2025).</div>
+  </div>
+  <div class="pub">
+    <div class="pub-venue">Preprint 2025</div>
+    <div class="pub-title">Bao, Y., ..., <b>Pu, Y.</b>, et al. "SafeWork-R1: Coevolving Safety and Intelligence under the AI-45° Law." <a href="https://arxiv.org/abs/2507.18576">arXiv preprint</a>.</div>
+  </div>
+  <div class="pub">
+    <div class="pub-venue">TMLR 2024</div>
+    <div class="pub-title"><b>Pu, Y.</b>, Niu, Y., et al. "UniZero: Generalized and efficient planning with scalable latent world models." <a href="https://openreview.net/forum?id=Gl6dF9soQo"><i>Transactions on Machine Learning Research</i></a>.</div>
+  </div>
+  <div class="pub">
+    <div class="pub-venue">NeurIPS 2023 Spotlight</div>
+    <div class="pub-title">Niu, Y., <b>Pu, Y.</b>, et al. "LightZero: A unified benchmark for Monte Carlo tree search in general sequential decision scenarios." <a href="https://nips.cc/virtual/2023/poster/73472"><i>Advances in Neural Information Processing Systems</i></a>, 36.</div>
+  </div>
+  <div class="pub">
+    <div class="pub-venue">CoRL 2025 Workshop</div>
+    <div class="pub-title">Xuan, C., Niu, Y., <b>Pu, Y.</b>, et al. "ReZero: Boosting MCTS-based algorithms by backward-view and entire-buffer reanalyze." <a href="https://arxiv.org/pdf/2404.16364">arXiv preprint</a>.</div>
+  </div>
+  <div class="pub">
+    <div class="pub-venue">Preprint 2024</div>
+    <div class="pub-title">Niu, Y., <b>Pu, Y.</b>, et al. "Unifying diverse decision-making scenarios with learned discrete actions." <a href="https://openreview.net/forum?id=WQ6rnDriHj">arXiv preprint</a>.</div>
+  </div>
+  <div class="pub">
+    <div class="pub-venue">Preprint 2021</div>
+    <div class="pub-title"><b>Pu, Y.</b>, Wang, S., et al. "Decomposed soft actor-critic method for cooperative multi-agent reinforcement learning." <a href="https://arxiv.org/abs/2104.06655">arXiv preprint</a>.</div>
+  </div>
+</div>
+
+<hr>
+
+<!-- ==================== EDUCATION ==================== -->
+<div class="container section">
+  <div class="section-title">教育背景 / Education</div>
+  <div class="timeline">
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-head">
+        <div>
+          <span class="timeline-title">中国科学技术大学</span>
+          <span class="timeline-sub"> · 硕士，电子工程与信息科学</span>
+        </div>
+        <span class="timeline-date">2018 — 2021</span>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-head">
+        <div>
+          <span class="timeline-title">哈尔滨工业大学（威海）</span>
+          <span class="timeline-sub"> · 学士，通信工程，专业排名 3/91</span>
+        </div>
+        <span class="timeline-date">2014 — 2018</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr>
+
+<!-- ==================== SKILLS ==================== -->
+<div class="container section">
+  <div class="section-title">技能 / Skills</div>
+  <div class="skill-group">
+    <div class="skill-label">强化学习 (RL)</div>
+    <div class="skill-desc">熟悉 Python/PyTorch，拥有丰富的 RL 算法设计开发与性能优化经验。在基于世界模型的 RL (World Models)、蒙特卡洛树搜索 (MCTS)、高效探索 (Exploration) 及多任务学习等前沿方向有深入研究与顶会发表记录。</div>
+  </div>
+  <div class="skill-group">
+    <div class="skill-label">大语言模型 (LLM)</div>
+    <div class="skill-desc">具备百亿参数级多模态大模型的后训练 (Post-training) 实战经验。熟练掌握 PPO、GRPO 等强化学习微调技术，在样本高效及训练稳定性等方面有独立探究经验。密切关注 RLVR/RLHF 与世界模型相融合的前沿技术。</div>
+  </div>
+  <div class="skill-group">
+    <div class="skill-label">技术影响力</div>
+    <div class="skill-desc">长期维护知乎专栏 <a href="https://www.zhihu.com/column/c_1764105923730083840">《决策智能与强化学习》</a>、<a href="https://www.zhihu.com/column/c_1764308735227662336">《MCTS+RL》</a> 及 <a href="https://www.zhihu.com/column/c_1812498902877876224">《基础模型和多模态交互》</a>。创建并维护前沿主题资源库 <a href="https://github.com/opendilab/awesome-exploration-rl">awesome-exploration-rl</a> 与 <a href="https://github.com/opendilab/awesome-rlvr">awesome-RLVR</a>/<a href="https://github.com/opendilab/awesome-rlkf">RLHF</a> 等。</div>
+  </div>
+</div>
+
+<hr>
+
+<!-- ==================== OTHER ==================== -->
+<div class="container section">
+  <div class="section-title">其他信息 / Misc</div>
+  <div class="info-grid">
+    <div class="info-item"><strong>学术服务：</strong>担任 ICLR 2026、NeurIPS 2025 Workshop 等会议审稿人。连续 3 年受邀于清华大学深圳研究生院《大数据分析》课程讲授《<a href="https://github.com/puyuan1996/rl_mcts_intro">强化学习与 MCTS 基础</a>》。作为核心负责人参与《世界模型》专业书籍编写 (WIP)。</div>
+    <div class="info-item"><strong>荣誉奖项：</strong>本科期间连续三年获国家励志奖学金，荣获山东省优秀毕业生称号。</div>
+    <div class="info-item"><strong>综合素质：</strong>通过全国计算机四级、英语六级 (CET-6)。具备对前沿科技的好奇心与技术攻关精神，热爱羽毛球、登山、旅行等。</div>
+  </div>
+</div>
+
+<!-- ==================== FOOTER ==================== -->
+<footer>
+  <div class="container">
+    &copy; 2026 蒲源 Yuan Pu · Built with pure HTML & CSS
+  </div>
+</footer>
+
+</body>
+</html>
