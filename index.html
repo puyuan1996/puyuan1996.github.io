@@ -38,20 +38,12 @@
     .lang-btn:hover:not(.active) { background: #edf2f7; }
 
     /* i18n visibility */
-    [data-lang="en"] { display: none; }
-    [data-lang="zh"] { display: block; }
-    span[data-lang="zh"], a[data-lang="zh"], b[data-lang="zh"], i[data-lang="zh"] { display: inline; }
-    span[data-lang="en"], a[data-lang="en"], b[data-lang="en"], i[data-lang="en"] { display: none; }
-    body.lang-en [data-lang="en"] { display: block; }
-    body.lang-en span[data-lang="en"], body.lang-en a[data-lang="en"], body.lang-en b[data-lang="en"], body.lang-en i[data-lang="en"] { display: inline; }
-    body.lang-en [data-lang="zh"] { display: none; }
-    body.lang-en span[data-lang="zh"], body.lang-en a[data-lang="zh"], body.lang-en b[data-lang="zh"], body.lang-en i[data-lang="zh"] { display: none; }
+    body:not(.lang-en) [data-lang="en"] { display: none !important; }
+    body.lang-en [data-lang="zh"] { display: none !important; }
+    
     /* keep dual-lang elements always visible */
     [data-lang="dual"] { display: block !important; }
     span[data-lang="dual"], a[data-lang="dual"], div[data-lang="dual"] { display: inline !important; }
-    .pub[data-lang="dual"] { display: block !important; }
-    .project-card[data-lang="dual"], .timeline-item[data-lang="dual"] { display: block !important; }
-    div.section[data-lang="dual"] { display: block !important; }
 
     /* ===== Header ===== */
     #header { padding: 48px 0 36px; }
@@ -273,14 +265,13 @@
 <hr>
 
 <!-- ==================== PROJECTS ==================== -->
-<!-- Sorted by end-date descending: ongoing first (LightRFT, PriorZero, LightZero), then ScaleZero(2026.03), MCTS+RL(2024.09), DI-engine(2023.04) -->
 <div class="container section">
   <div class="section-title">
     <span data-lang="zh">核心项目与研究 / Projects &amp; Research</span>
     <span data-lang="en">Projects &amp; Research</span>
   </div>
 
-  <!-- 1. LightRFT — ongoing -->
+  <!-- 1. LightRFT -->
   <div class="project-card">
     <div class="pc-head">
       <div class="pc-title">
@@ -306,7 +297,7 @@
     </div>
   </div>
 
-  <!-- 2. PriorZero — ongoing (split from ScaleZero) -->
+  <!-- 2. PriorZero -->
   <div class="project-card">
     <div class="pc-head">
       <div class="pc-title">
@@ -330,7 +321,7 @@
     </div>
   </div>
 
-  <!-- 3. LightZero — ongoing -->
+  <!-- 3. LightZero -->
   <div class="project-card">
     <div class="pc-head">
       <div class="pc-title">
@@ -356,7 +347,7 @@
     </div>
   </div>
 
-  <!-- 4. ScaleZero — ended 2026.03 -->
+  <!-- 4. ScaleZero -->
   <div class="project-card">
     <div class="pc-head">
       <div class="pc-title">
@@ -377,7 +368,7 @@
     </div>
   </div>
 
-  <!-- 5. MCTS+RL Algorithm Research — ended 2024.09 -->
+  <!-- 5. MCTS+RL Algorithm Research -->
   <div class="project-card">
     <div class="pc-head">
       <div class="pc-title">
@@ -400,7 +391,7 @@
     </div>
   </div>
 
-  <!-- 6. DI-engine — ended 2023.04 -->
+  <!-- 6. DI-engine -->
   <div class="project-card">
     <div class="pc-head">
       <div class="pc-title">
