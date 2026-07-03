@@ -271,7 +271,59 @@
     <span data-lang="en">Projects &amp; Research</span>
   </div>
 
-  <!-- 1. LightRFT -->
+  <!-- 1. AgenticRL -->
+  <div class="project-card">
+    <div class="pc-head">
+      <div class="pc-title">
+        <span data-lang="zh">AgenticRL 探究：面向智能体任务的统一 RL 后训练框架</span>
+        <span data-lang="en">AgenticRL Exploration: Unified RL Post-training for Agentic Workflows</span>
+      </div>
+      <span class="pc-date">
+        <span data-lang="zh">2026 — 至今</span>
+        <span data-lang="en">2026 — Present</span>
+      </span>
+    </div>
+    <div class="pc-body" data-lang="zh">
+      <ul>
+        <li>建设适配不同 harness、不同大小与类型模型、不同 RL 算法的训练框架，形成 Harness × Model × Algorithm 三维可插拔能力，支撑通用能力训练与安全能力训练的协同提升。</li>
+        <li>围绕 Agentic-RL 中关键的探索-利用机制、奖励信号建模、world-model 机制等方向展开算法探究，提升复杂多轮交互任务中的训练效率、稳定性与可迁移性。</li>
+      </ul>
+    </div>
+    <div class="pc-body" data-lang="en">
+      <ul>
+        <li>Building an RL training framework that supports different harnesses, model sizes and types, and RL algorithms through pluggable Harness × Model × Algorithm abstractions, enabling coordinated improvement of general capabilities and safety capabilities.</li>
+        <li>Conducting algorithmic research on key Agentic-RL mechanisms, including exploration-exploitation, reward signal modeling, and world-model-based training, to improve efficiency, stability, and transferability in complex multi-turn interaction tasks.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- 2. PriorZero -->
+  <div class="project-card">
+    <div class="pc-head">
+      <div class="pc-title">
+        <span data-lang="zh"><a href="https://arxiv.org/abs/2605.12289">PriorZero</a>：语言先验增强的世界模型决策框架</span>
+        <span data-lang="en"><a href="https://arxiv.org/abs/2605.12289">PriorZero</a>: Language-Prior-Augmented World Model Planning</span>
+      </div>
+      <span class="pc-date">
+        <span data-lang="zh">2025.06 — 至今</span>
+        <span data-lang="en">2025.06 — Present</span>
+      </span>
+    </div>
+    <div class="pc-body" data-lang="zh">
+      <ul>
+        <li><span class="badge badge-orange">arXiv 2026</span> <a href="https://arxiv.org/abs/2605.12289">PriorZero</a>（arXiv:2605.12289）：针对 LLM 知识迁移到长程稀疏奖励 RL 中的 prior-dynamics mismatch，提出解耦的 rollout-training 框架。通过 Root-Prior Injection 将 LLM 语义先验仅注入 MCTS 根节点，引导搜索聚焦语义上更有潜力的动作，同时保留世界模型在隐空间中的多步前瞻能力。</li>
+        <li>训练阶段解耦世界模型学习与 LLM 适配：世界模型基于交互数据持续优化 dynamics、policy 与 value 预测，并利用其价值估计构造低方差、细粒度的信用分配信号进行交替强化学习微调；在 Jericho 与 BabyAI 等基准上提升探索效率与最终性能。</li>
+      </ul>
+    </div>
+    <div class="pc-body" data-lang="en">
+      <ul>
+        <li><span class="badge badge-orange">arXiv 2026</span> <a href="https://arxiv.org/abs/2605.12289">PriorZero</a> (arXiv:2605.12289): addresses the prior-dynamics mismatch when transferring LLM knowledge to long-horizon, sparse-reward RL through a decoupled rollout-training framework. Root-Prior Injection incorporates LLM semantic priors only at the MCTS root node, focusing search on semantically promising actions while preserving the world model's latent multi-step lookahead.</li>
+        <li>During training, PriorZero decouples world-model learning from LLM adaptation: the world model continually improves its dynamics, policy, and value predictions on interaction data, and its value estimates provide low-variance, fine-grained credit assignment signals for alternating RL fine-tuning. Experiments on Jericho and BabyAI show improved exploration efficiency and final performance.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- 3. LightRFT -->
   <div class="project-card">
     <div class="pc-head">
       <div class="pc-title">
@@ -285,43 +337,19 @@
     </div>
     <div class="pc-body" data-lang="zh">
       <ul>
-        <li>作为核心成员，为百卡级多模态大模型安全对齐项目 <a href="https://arxiv.org/abs/2507.18576">SafeWork-R1</a> 构建底层训练设施。设计了统一的 Strategy 抽象层，实现了训练（DeepSpeed/FSDP）、推理（vLLM/SGLang）与验证（规则/模型）等异构任务在统一控制平面下的灵活切换与高效共置，显著提升了多模态基础模型与奖励模型协同训练的资源利用率和易用性。</li>
+        <li>作为核心成员，为百卡级多模态大模型安全对齐项目 <span class="badge badge-orange">arXiv 2025</span> <a href="https://arxiv.org/abs/2507.18576">SafeWork-R1</a> 构建底层训练设施。设计了统一的 Strategy 抽象层，实现了训练（DeepSpeed/FSDP）、推理（vLLM/SGLang）与验证（规则/模型）等异构任务在统一控制平面下的灵活切换与高效共置，显著提升了多模态基础模型与奖励模型协同训练的资源利用率和易用性。</li>
         <li>主导 Off-policy 设置下的算法机制研究，致力于解决强化学习微调中的样本效率与训练稳定性难题；同时深入探索基于奖励模型的强化微调算法，以提升模型对齐效果。</li>
       </ul>
     </div>
     <div class="pc-body" data-lang="en">
       <ul>
-        <li>As a core member, built the underlying training infrastructure for the 100+ GPU multimodal LLM safety alignment project <a href="https://arxiv.org/abs/2507.18576">SafeWork-R1</a>. Designed a unified Strategy abstraction layer enabling flexible switching and efficient co-location of heterogeneous tasks (training via DeepSpeed/FSDP, inference via vLLM/SGLang, verification via rules/models) under a unified control plane.</li>
+        <li>As a core member, built the underlying training infrastructure for the 100+ GPU multimodal LLM safety alignment project <span class="badge badge-orange">arXiv 2025</span> <a href="https://arxiv.org/abs/2507.18576">SafeWork-R1</a>. Designed a unified Strategy abstraction layer enabling flexible switching and efficient co-location of heterogeneous tasks (training via DeepSpeed/FSDP, inference via vLLM/SGLang, verification via rules/models) under a unified control plane.</li>
         <li>Leading research on off-policy algorithms for RL fine-tuning, addressing sample efficiency and training stability challenges; exploring Reward Model RFT algorithms to improve model alignment.</li>
       </ul>
     </div>
   </div>
 
-  <!-- 2. PriorZero -->
-  <div class="project-card">
-    <div class="pc-head">
-      <div class="pc-title">
-        <span data-lang="zh">PriorZero：LLM/VLM 与 MCTS 协同决策架构</span>
-        <span data-lang="en">PriorZero: LLM/VLM & MCTS Synergistic Decision Architecture</span>
-      </div>
-      <span class="pc-date">
-        <span data-lang="zh">2025.06 — 至今</span>
-        <span data-lang="en">2025.06 — Present</span>
-      </span>
-    </div>
-    <div class="pc-body" data-lang="zh">
-      <ul>
-        <li>探索 LLM/VLM 与 MCTS 的双模型协同架构。利用大模型的常识推理能力为搜索提供高质量先验（Prior），并通过 MCTS 在隐空间的规划结果反哺大模型训练。该研究旨在构建"推理-规划"协同进化的闭环系统，解决长程依赖及稀疏奖励下的复杂决策难题。</li>
-      </ul>
-    </div>
-    <div class="pc-body" data-lang="en">
-      <ul>
-        <li>Exploring a dual-model synergistic architecture combining LLM/VLM with MCTS. Leveraging commonsense reasoning capabilities of large models to provide high-quality priors for search, while using MCTS planning results in latent space to improve LLM training. Aiming to build a closed-loop "reasoning-planning" co-evolution system for complex decision-making under long-horizon dependencies and sparse rewards.</li>
-      </ul>
-    </div>
-  </div>
-
-  <!-- 3. LightZero -->
+  <!-- 4. LightZero -->
   <div class="project-card">
     <div class="pc-head">
       <div class="pc-title">
@@ -347,7 +375,7 @@
     </div>
   </div>
 
-  <!-- 4. ScaleZero -->
+  <!-- 5. ScaleZero -->
   <div class="project-card">
     <div class="pc-head">
       <div class="pc-title">
@@ -368,7 +396,7 @@
     </div>
   </div>
 
-  <!-- 5. MCTS+RL Algorithm Research -->
+  <!-- 6. MCTS+RL Algorithm Research -->
   <div class="project-card">
     <div class="pc-head">
       <div class="pc-title">
@@ -391,7 +419,7 @@
     </div>
   </div>
 
-  <!-- 6. DI-engine -->
+  <!-- 7. DI-engine -->
   <div class="project-card">
     <div class="pc-head">
       <div class="pc-title">
@@ -427,6 +455,10 @@
   <div class="pub">
     <div class="pub-venue">ICLR 2026</div>
     <div class="pub-title"><b>Pu, Y.</b>, et al. "One Model for All Tasks: Leveraging Efficient World Models in Multi-Task Planning." arXiv preprint arXiv:2509.07945 (2025).</div>
+  </div>
+  <div class="pub">
+    <div class="pub-venue">arXiv 2026</div>
+    <div class="pub-title">Xiong, J., <b>Pu, Y.</b>, Tang, J., Niu, Y. "PriorZero: Bridging Language Priors and World Models for Decision Making." <a href="https://arxiv.org/abs/2605.12289">arXiv preprint arXiv:2605.12289</a> (2026).</div>
   </div>
   <div class="pub">
     <div class="pub-venue">SafeWork-R1</div>
@@ -484,11 +516,11 @@
       <div class="timeline-head">
         <div>
           <span data-lang="zh">
-            <span class="timeline-title">哈尔滨工业大学（威海）</span>
+            <span class="timeline-title">哈尔滨工业大学</span>
             <span class="timeline-sub"> · 学士，通信工程，专业排名 3/91</span>
           </span>
           <span data-lang="en">
-            <span class="timeline-title">Harbin Institute of Technology (Weihai)</span>
+            <span class="timeline-title">Harbin Institute of Technology</span>
             <span class="timeline-sub"> · B.E. in Communication Engineering, Rank: 3/91</span>
           </span>
         </div>
@@ -512,16 +544,16 @@
       <span data-lang="zh">强化学习 (RL)</span>
       <span data-lang="en">Reinforcement Learning (RL)</span>
     </div>
-    <div class="skill-desc" data-lang="zh">熟悉 Python/PyTorch，拥有丰富的 RL 算法设计开发与性能优化经验。在基于世界模型的 RL (World Models)、蒙特卡洛树搜索 (MCTS)、高效探索 (Exploration) 及多任务学习等前沿方向有深入研究与顶会发表记录。</div>
-    <div class="skill-desc" data-lang="en">Proficient in Python/PyTorch with extensive experience in RL algorithm design, development, and performance optimization. In-depth research and top-venue publications in world model-based RL, Monte Carlo Tree Search (MCTS), efficient exploration, and multi-task learning.</div>
+    <div class="skill-desc" data-lang="zh">熟悉 Python/PyTorch，拥有丰富的 RL 算法设计开发与性能优化经验。在基于世界模型的 RL (World Models)、蒙特卡洛树搜索 (MCTS)、高效探索 (Exploration)、Agentic-RL 及多任务学习等方向有深入研究与顶会发表记录。</div>
+    <div class="skill-desc" data-lang="en">Proficient in Python/PyTorch with extensive experience in RL algorithm design, development, and performance optimization. In-depth research and top-venue publications in world model-based RL, Monte Carlo Tree Search (MCTS), efficient exploration, Agentic-RL, and multi-task learning.</div>
   </div>
   <div class="skill-group">
     <div class="skill-label">
       <span data-lang="zh">大语言模型 (LLM)</span>
       <span data-lang="en">Large Language Models (LLM)</span>
     </div>
-    <div class="skill-desc" data-lang="zh">具备百亿参数级多模态大模型的后训练 (Post-training) 实战经验。熟练掌握 PPO、GRPO 等强化学习微调技术，在样本高效及训练稳定性等方面有独立探究经验。密切关注 RLVR/RLHF 与世界模型相融合的前沿技术。</div>
-    <div class="skill-desc" data-lang="en">Hands-on post-training experience with 10B+ parameter multimodal LLMs. Proficient in PPO, GRPO and other RL fine-tuning techniques, with independent research on sample efficiency and training stability. Closely tracking the frontier of RLVR/RLHF integrated with world models.</div>
+    <div class="skill-desc" data-lang="zh">具备百亿参数级多模态大模型的后训练 (Post-training) 实战经验。熟练掌握 PPO、GRPO 等强化学习微调技术，并参与面向工具交互、可验证反馈和安全对齐的统一 RL 后训练框架建设。密切关注 RLVR/RLHF 与世界模型相融合的前沿技术。</div>
+    <div class="skill-desc" data-lang="en">Hands-on post-training experience with 10B+ parameter multimodal LLMs. Proficient in PPO, GRPO and other RL fine-tuning techniques, with experience building unified RL post-training workflows for tool interaction, verifiable feedback, and safety alignment. Closely tracking the frontier of RLVR/RLHF integrated with world models.</div>
   </div>
   <div class="skill-group">
     <div class="skill-label">
@@ -542,12 +574,12 @@
     <span data-lang="en">Misc</span>
   </div>
   <div class="info-grid" data-lang="zh">
-    <div class="info-item"><strong>学术服务：</strong>担任 ICLR 2026、NeurIPS 2025 Workshop 审稿人。连续 3 年受邀于清华大学深圳研究生院《大数据分析》课程讲授《<a href="https://github.com/puyuan1996/rl_mcts_intro">强化学习与 MCTS 基础</a>》。作为核心负责人参与《世界模型》专业书籍编写 (WIP)。</div>
+    <div class="info-item"><strong>学术服务：</strong>担任 ICLR 2026、NeurIPS 2026、NeurIPS 2025 Workshop 审稿人。连续 3 年受邀于清华大学深圳研究生院《大数据分析》课程讲授《<a href="https://github.com/puyuan1996/rl_mcts_intro">强化学习与 MCTS 基础</a>》。作为核心负责人参与《世界模型》专业书籍编写 (WIP)。</div>
     <div class="info-item"><strong>荣誉奖项：</strong>本科期间连续三年获国家励志奖学金，荣获山东省优秀毕业生称号。</div>
     <div class="info-item"><strong>综合素质：</strong>通过全国计算机四级、英语六级 (CET-6)。具备对前沿科技的好奇心与技术攻关精神，热爱羽毛球与登山。</div>
   </div>
   <div class="info-grid" data-lang="en">
-    <div class="info-item"><strong>Academic Service: </strong>Reviewer for ICLR 2026 and NeurIPS 2025 Workshop. Guest lecturer on <a href="https://github.com/puyuan1996/rl_mcts_intro">RL & MCTS Fundamentals</a> at Tsinghua University Shenzhen for 3 consecutive years. Core contributor to a professional book on World Models (WIP).</div>
+    <div class="info-item"><strong>Academic Service: </strong>Reviewer for ICLR 2026, NeurIPS 2026, and NeurIPS 2025 Workshop. Guest lecturer on <a href="https://github.com/puyuan1996/rl_mcts_intro">RL & MCTS Fundamentals</a> at Tsinghua University Shenzhen for 3 consecutive years. Core contributor to a professional book on World Models (WIP).</div>
     <div class="info-item"><strong>Honors: </strong>National Encouragement Scholarship for 3 consecutive years during undergraduate studies. Outstanding Graduate of Shandong Province.</div>
     <div class="info-item"><strong>Misc: </strong>National Computer Rank Examination Level 4, CET-6. Passionate about badminton and hiking.</div>
   </div>
