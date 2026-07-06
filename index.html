@@ -190,7 +190,7 @@
       <div class="tagline" data-lang="en">
         <span class="tag">Reinforcement Learning</span>
         <span class="tag">World Models</span>
-        <span class="tag">Multimodal LLM Post-training</span>
+        <span class="tag">LLM Post-training</span>
         <span class="tag">Monte Carlo Tree Search</span>
       </div>
       <div class="social-links">
@@ -276,11 +276,11 @@
     <div class="pc-head">
       <div class="pc-title">
         <span data-lang="zh">AgenticRL 探究：面向智能体任务的统一 RL 后训练框架</span>
-        <span data-lang="en">AgenticRL Exploration: Unified RL Post-training for Agentic Workflows</span>
+        <span data-lang="en">AgenticRL Exploration: Unified RL Post-training Framework for Agentic Tasks</span>
       </div>
       <span class="pc-date">
-        <span data-lang="zh">2026 — 至今</span>
-        <span data-lang="en">2026 — Present</span>
+        <span data-lang="zh">2026.03 — 至今</span>
+        <span data-lang="en">2026.03 — Present</span>
       </span>
     </div>
     <div class="pc-body" data-lang="zh">
@@ -302,22 +302,22 @@
     <div class="pc-head">
       <div class="pc-title">
         <span data-lang="zh"><a href="https://arxiv.org/abs/2605.12289">PriorZero</a>：语言先验增强的世界模型决策框架</span>
-        <span data-lang="en"><a href="https://arxiv.org/abs/2605.12289">PriorZero</a>: Language-Prior-Augmented World Model Planning</span>
+        <span data-lang="en"><a href="https://arxiv.org/abs/2605.12289">PriorZero</a>: Language-Prior-Augmented World Model Decision Framework</span>
       </div>
       <span class="pc-date">
-        <span data-lang="zh">2025.06 — 至今</span>
-        <span data-lang="en">2025.06 — Present</span>
+        <span data-lang="zh">2025.06 — 2026.04</span>
+        <span data-lang="en">2025.06 — 2026.04</span>
       </span>
     </div>
     <div class="pc-body" data-lang="zh">
       <ul>
-        <li><span class="badge badge-orange">arXiv 2026</span> <a href="https://arxiv.org/abs/2605.12289">PriorZero</a>（arXiv:2605.12289）：针对 LLM 知识迁移到长程稀疏奖励 RL 中的 prior-dynamics mismatch，提出解耦的 rollout-training 框架。通过 Root-Prior Injection 将 LLM 语义先验仅注入 MCTS 根节点，引导搜索聚焦语义上更有潜力的动作，同时保留世界模型在隐空间中的多步前瞻能力。</li>
+        <li><span class="badge badge-orange">arXiv 2026</span> <a href="https://arxiv.org/abs/2605.12289">PriorZero</a>：针对 LLM 知识迁移到长程稀疏奖励 RL 中的 prior-dynamics mismatch，提出解耦的 rollout-training 框架。通过 Root-Prior Injection 将 LLM 语义先验仅注入 MCTS 根节点，引导搜索聚焦语义上更有潜力的动作，同时保留世界模型在隐空间中的多步前瞻能力。</li>
         <li>训练阶段解耦世界模型学习与 LLM 适配：世界模型基于交互数据持续优化 dynamics、policy 与 value 预测，并利用其价值估计构造低方差、细粒度的信用分配信号进行交替强化学习微调；在 Jericho 与 BabyAI 等基准上提升探索效率与最终性能。</li>
       </ul>
     </div>
     <div class="pc-body" data-lang="en">
       <ul>
-        <li><span class="badge badge-orange">arXiv 2026</span> <a href="https://arxiv.org/abs/2605.12289">PriorZero</a> (arXiv:2605.12289): addresses the prior-dynamics mismatch when transferring LLM knowledge to long-horizon, sparse-reward RL through a decoupled rollout-training framework. Root-Prior Injection incorporates LLM semantic priors only at the MCTS root node, focusing search on semantically promising actions while preserving the world model's latent multi-step lookahead.</li>
+        <li><span class="badge badge-orange">arXiv 2026</span> <a href="https://arxiv.org/abs/2605.12289">PriorZero</a>: addresses the prior-dynamics mismatch when transferring LLM knowledge to long-horizon, sparse-reward RL through a decoupled rollout-training framework. Root-Prior Injection incorporates LLM semantic priors only at the MCTS root node, focusing search on semantically promising actions while preserving the world model's latent multi-step lookahead.</li>
         <li>During training, PriorZero decouples world-model learning from LLM adaptation: the world model continually improves its dynamics, policy, and value predictions on interaction data, and its value estimates provide low-variance, fine-grained credit assignment signals for alternating RL fine-tuning. Experiments on Jericho and BabyAI show improved exploration efficiency and final performance.</li>
       </ul>
     </div>
@@ -331,8 +331,8 @@
         <span data-lang="en"><a href="https://github.com/opendilab/LightRFT">LightRFT</a>: Lightweight, All-Modality & Reward-Model-Driven RL Fine-Tuning Framework</span>
       </div>
       <span class="pc-date">
-        <span data-lang="zh">2025.03 — 至今</span>
-        <span data-lang="en">2025.03 — Present</span>
+        <span data-lang="zh">2025.03 — 2025.09</span>
+        <span data-lang="en">2025.03 — 2025.09</span>
       </span>
     </div>
     <div class="pc-body" data-lang="zh">
@@ -343,7 +343,7 @@
     </div>
     <div class="pc-body" data-lang="en">
       <ul>
-        <li>As a core member, built the underlying training infrastructure for the 100+ GPU multimodal LLM safety alignment project <span class="badge badge-orange">arXiv 2025</span> <a href="https://arxiv.org/abs/2507.18576">SafeWork-R1</a>. Designed a unified Strategy abstraction layer enabling flexible switching and efficient co-location of heterogeneous tasks (training via DeepSpeed/FSDP, inference via vLLM/SGLang, verification via rules/models) under a unified control plane.</li>
+        <li>As a core member, built the underlying training infrastructure for the 100+ GPU multimodal LLM safety alignment project <span class="badge badge-orange">arXiv 2025</span> <a href="https://arxiv.org/abs/2507.18576">SafeWork-R1</a>. Designed a unified Strategy abstraction layer enabling flexible switching and efficient co-location of heterogeneous tasks (training via DeepSpeed/FSDP, inference via vLLM/SGLang, verification via rules/models) under a unified control plane, significantly improving resource utilization and usability for joint training of multimodal foundation models and reward models.</li>
         <li>Leading research on off-policy algorithms for RL fine-tuning, addressing sample efficiency and training stability challenges; exploring Reward Model RFT algorithms to improve model alignment.</li>
       </ul>
     </div>
@@ -413,7 +413,7 @@
     </div>
     <div class="pc-body" data-lang="en">
       <ul>
-        <li><span class="badge badge-blue">TMLR 2025</span> <a href="https://openreview.net/forum?id=Gl6dF9soQo">UniZero</a>: Independently proposed a modular world model architecture based on Transformer. By constructing a shared latent space and jointly optimizing long-horizon dynamics prediction and decision objectives, effectively addressed generalization challenges of MCTS in heterogeneous state-action spaces and long-horizon tasks.</li>
+        <li><span class="badge badge-blue">TMLR 2025</span> <a href="https://openreview.net/forum?id=Gl6dF9soQo">UniZero</a>: Independently proposed a modular Transformer-based world model architecture. By constructing a shared latent space and jointly optimizing long-horizon dynamics prediction and decision objectives, effectively addressed generalization challenges of MCTS in heterogeneous state-action spaces and long-horizon tasks, achieving strong performance on both single-task and multi-task benchmarks.</li>
         <li><span class="badge badge-green">CoRL 2025 RemembeRL Workshop</span> <a href="https://openreview.net/forum?id=F9Y7j3AJTu">ReZero</a>: Co-proposed the Backward-view Reanalyze mechanism, improving training time efficiency of MCTS-based algorithms by 1.5-2x while maintaining sample efficiency.</li>
       </ul>
     </div>
@@ -437,7 +437,7 @@
     <div class="pc-body" data-lang="en">
       <ul>
         <li>Top-2 contributor to <a href="https://github.com/opendilab/DI-engine">DI-engine</a> (<span id="stars-diengine-en">3.6k+</span> Stars). The framework supports a full stack of algorithms from DQN, PPO to DreamerV3, NGU through co-designed algorithm-system abstractions. Led the architecture design and implementation of exploration mechanisms, POMDP support, and model-based RL modules.</li>
-        <li>Deeply involved in the <a href="https://github.com/opendilab/PPOxFamily">PPO x Family</a> introductory course on decision intelligence (<span id="stars-ppoxfamily-en">2.5k+</span> Stars). Designed experiments and wrote tutorials for core chapters on multimodal observations, complex action spaces, and multi-agent cooperation.</li>
+        <li>Deeply involved in the <a href="https://github.com/opendilab/PPOxFamily">PPO x Family</a> introductory course on decision intelligence (<span id="stars-ppoxfamily-en">2.5k+</span> Stars). Designed experiments and wrote tutorials for core chapters on multimodal observations, complex action spaces, and multi-agent cooperation, helping community beginners learn the PPO algorithm family from theory to practice.</li>
       </ul>
     </div>
   </div>
@@ -552,8 +552,8 @@
       <span data-lang="zh">大语言模型 (LLM)</span>
       <span data-lang="en">Large Language Models (LLM)</span>
     </div>
-    <div class="skill-desc" data-lang="zh">具备百亿参数级多模态大模型的后训练 (Post-training) 实战经验。熟练掌握 PPO、GRPO 等强化学习微调技术，并参与面向工具交互、可验证反馈和安全对齐的统一 RL 后训练框架建设。密切关注 RLVR/RLHF 与世界模型相融合的前沿技术。</div>
-    <div class="skill-desc" data-lang="en">Hands-on post-training experience with 10B+ parameter multimodal LLMs. Proficient in PPO, GRPO and other RL fine-tuning techniques, with experience building unified RL post-training workflows for tool interaction, verifiable feedback, and safety alignment. Closely tracking the frontier of RLVR/RLHF integrated with world models.</div>
+    <div class="skill-desc" data-lang="zh">具备百亿参数级多模态大模型的后训练 (Post-training) 实战经验。熟练掌握 PPO、GRPO 等强化学习微调技术，并参与面向工具交互、可验证反馈和安全对齐的统一 RL 后训练框架建设。密切关注 RLHF/RLVR/AgenticRL 与世界模型相融合的前沿技术。</div>
+    <div class="skill-desc" data-lang="en">Hands-on post-training experience with 10B+ parameter multimodal LLMs. Proficient in PPO, GRPO and other RL fine-tuning techniques, with experience building unified RL post-training workflows for tool interaction, verifiable feedback, and safety alignment. Closely tracking the frontier of RLHF/RLVR/AgenticRL integrated with world models.</div>
   </div>
   <div class="skill-group">
     <div class="skill-label">
@@ -561,7 +561,7 @@
       <span data-lang="en">Community Impact</span>
     </div>
     <div class="skill-desc" data-lang="zh">长期维护知乎专栏 <a href="https://www.zhihu.com/people/dilab-46">《决策智能与强化学习》</a>、<a href="https://www.zhihu.com/column/c_1764308735227662336">《MCTS+RL》</a> 及 <a href="https://www.zhihu.com/column/c_1812498902877876224">《基础模型和多模态交互》</a>。创建并维护前沿主题资源库 <a href="https://github.com/opendilab/awesome-exploration-rl">awesome-exploration-rl</a> 与 <a href="https://github.com/opendilab/awesome-rlvr">awesome-RLVR</a>/<a href="https://github.com/opendilab/awesome-rlkf">RLHF</a> 等，持续追踪领域最新动态。</div>
-    <div class="skill-desc" data-lang="en">Maintaining Zhihu columns on <a href="https://www.zhihu.com/people/dilab-46">Decision Intelligence & RL</a>, <a href="https://www.zhihu.com/column/c_1764308735227662336">MCTS+RL</a>, and <a href="https://www.zhihu.com/column/c_1812498902877876224">Foundation Models & Multimodal Interaction</a>. Created and maintain curated resource repositories including <a href="https://github.com/opendilab/awesome-exploration-rl">awesome-exploration-rl</a>, <a href="https://github.com/opendilab/awesome-rlvr">awesome-RLVR</a>/<a href="https://github.com/opendilab/awesome-rlkf">RLHF</a>.</div>
+    <div class="skill-desc" data-lang="en">Long-term maintainer of Zhihu columns on <a href="https://www.zhihu.com/people/dilab-46">Decision Intelligence & RL</a>, <a href="https://www.zhihu.com/column/c_1764308735227662336">MCTS+RL</a>, and <a href="https://www.zhihu.com/column/c_1812498902877876224">Foundation Models & Multimodal Interaction</a>. Also created and maintains curated resource repositories including <a href="https://github.com/opendilab/awesome-exploration-rl">awesome-exploration-rl</a>, <a href="https://github.com/opendilab/awesome-rlvr">awesome-RLVR</a>/<a href="https://github.com/opendilab/awesome-rlkf">RLHF</a>, continuously tracking the latest developments in the field.</div>
   </div>
 </div>
 
@@ -581,7 +581,7 @@
   <div class="info-grid" data-lang="en">
     <div class="info-item"><strong>Academic Service: </strong>Reviewer for ICLR 2026, NeurIPS 2026, and NeurIPS 2025 Workshop. Guest lecturer on <a href="https://github.com/puyuan1996/rl_mcts_intro">RL & MCTS Fundamentals</a> at Tsinghua University Shenzhen for 3 consecutive years. Core contributor to a professional book on World Models (WIP).</div>
     <div class="info-item"><strong>Honors: </strong>National Encouragement Scholarship for 3 consecutive years during undergraduate studies. Outstanding Graduate of Shandong Province.</div>
-    <div class="info-item"><strong>Misc: </strong>National Computer Rank Examination Level 4, CET-6. Passionate about badminton and hiking.</div>
+    <div class="info-item"><strong>Misc: </strong>National Computer Rank Examination Level 4, CET-6. Curious about frontier technologies, committed to technical problem solving, and passionate about badminton and hiking.</div>
   </div>
 </div>
 
